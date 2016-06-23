@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #
     'rest_framework.authtoken',
-    'app.question'
+    'app.question',
+    'app.notification'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -79,11 +80,11 @@ WSGI_APPLICATION = 'notific.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'notific',
+        'USER': 'postgres'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -122,3 +123,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+FIREBASE_SECRET = "AIzaSyAgF4vh1M0z4EKN3F-VHxZ63WIP_XXkrDw"
+FIREBASE_URL = "https://sellercrowd-3fc75.firebaseio.com"
