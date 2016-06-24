@@ -1,5 +1,6 @@
 import json
 import requests
+from pusher import Pusher
 
 from django.db import models
 from django.conf import settings
@@ -27,10 +28,18 @@ class Notification(models.Model):
     is_seen = models.BooleanField(default=False, db_index=True)
     extra = JSONField()
 
+    def _get_user_channel(self):
+        return "user-{0}".format(self.user.id)
+
     def save(self, **kwargs):
         from .serializers import NotificationSerializer
 
         super(Notification, self).save()
         data = NotificationSerializer(self).data
-        url = '{0}/notifications/{1}/{2}.json'.format(settings.FIREBASE_URL, self.user.id, self.id)
-        response = requests.put(url, json.dumps(data))
+        pusher = Pusher(
+            app_id=settings.PUSHER_APP_ID,
+            key=settings.PUSHER_KEY,
+            secret=settings.PUSHER_SECRET
+        )
+
+        pusher.trigger(self._get_user_channel(), 'notification', json.dumps(data))

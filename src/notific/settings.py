@@ -124,5 +124,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-FIREBASE_SECRET = "AIzaSyAgF4vh1M0z4EKN3F-VHxZ63WIP_XXkrDw"
-FIREBASE_URL = "https://sellercrowd-3fc75.firebaseio.com"
+PUSHER_APP_ID = "219742"
+PUSHER_KEY = "639ac335613b3e9af534"
+PUSHER_SECRET = "5113b25d1af184fe9bf2"
